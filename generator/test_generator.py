@@ -1,0 +1,108 @@
+import anthropic
+import json
+import argparse
+import os
+from pathlib import Path
+from datetime import datetime
+
+try:
+    from rich.console import Console
+    from rich.table import Table
+    from rich import print as rprint
+    RICH_AVAILABLE = True
+except ImportError:
+    RICH_AVAILABLE = False
+
+PROMPT_PATH = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
+OUTPUT_DIR = Path(__file__).parent.parent / "output"
+
+
+def load_system_prompt() -> str:
+    with open(PROMPT_PATH, "r") as f:
+        return f.read()
+
+
+def generate_test_cases(feature_description: str) -> dict:
+    client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+
+    system_prompt = load_system_prompt()
+
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=2048,
+        system=system_prompt,
+        messages=[
+            {"role": "user", "content": f"Generate test cases for: {feature_description}"}
+        ]
+    )
+
+    raw = message.content[0].text.strip()
+    return json.loads(raw)
+
+
+def display_results(result: dict):
+    if not RICH_AVAILABLE:
+        print(json.dumps(result, indent=2))
+        return
+
+    console = Console()
+    console.print(f"\n[bold green]Feature:[/bold green] {result['feature']}")
+    console.print(f"[bold]Total Test Cases Generated:[/bold] {result['total_cases']}\n")
+
+    table = Table(show_header=True, header_style="bold cyan")
+    table.add_column("ID", width=8)
+    table.add_column("Title", width=45)
+    table.add_column("Type", width=12)
+    table.add_column("Priority", width=10)
+    table.add_column("Tags", width=20)
+
+    type_colors = {"positive": "green", "negative": "red", "edge_case": "yellow"}
+
+    for tc in result["test_cases"]:
+        color = type_colors.get(tc["type"], "white")
+        table.add_row(
+            tc["id"],
+            tc["title"],
+            f"[{color}]{tc['type']}[/{color}]",
+            tc["priority"],
+            ", ".join(tc.get("tags", []))
+        )
+
+    console.print(table)
+
+
+def save_output(result: dict, feature: str):
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_name = feature[:30].replace(" ", "_").lower()
+    filename = OUTPUT_DIR / f"testcases_{safe_name}_{timestamp}.json"
+    with open(filename, "w") as f:
+        json.dump(result, f, indent=2)
+    print(f"\nSaved to: {filename}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="AI Test Case Generator")
+    parser.add_argument("--input", type=str, help="Feature description as text")
+    parser.add_argument("--file", type=str, help="Path to text file with feature description")
+    parser.add_argument("--save", action="store_true", help="Save output to JSON file")
+    args = parser.parse_args()
+
+    if args.file:
+        with open(args.file, "r") as f:
+            feature_description = f.read()
+    elif args.input:
+        feature_description = args.input
+    else:
+        feature_description = input("Enter feature description: ")
+
+    print(f"\nGenerating test cases for: {feature_description[:80]}...")
+    result = generate_test_cases(feature_description)
+    display_results(result)
+
+    if args.save:
+        save_output(result, feature_description)
+
+
+if __name__ == "__main__":
+    main()
