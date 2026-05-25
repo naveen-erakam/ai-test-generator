@@ -8,7 +8,7 @@ and outputs structured, ready-to-use test cases using Google Gemini (free).
 ```
 Input: Feature description or user story (plain text)
          |
-   Gemini AI analyses requirements
+   Groq AI analyses requirements
          |
 Output: Structured test cases with steps, expected results, priority, and tags
 ```
@@ -16,7 +16,7 @@ Output: Structured test cases with steps, expected results, priority, and tags
 ## Tech Stack
 
 - **Python** 3.11+
-- **Google Gemini API** (free — no credit card required)
+- **Groq API** (free — no credit card required)
 - **Rich** (beautiful terminal output)
 - **Pytest** (for validating generator logic)
 
@@ -25,10 +25,10 @@ Output: Structured test cases with steps, expected results, priority, and tags
 ```
 ai-test-generator/
 ├── generator/
-│   ├── test_generator.py     # Core generation logic (Gemini API)
+│   ├── test_generator.py     # Core generation logic (Groq API)
 │   └── parser.py             # Converts output to Robot Framework / Pytest format
 ├── prompts/
-│   └── system_prompt.txt     # Prompt template sent to Gemini
+│   └── system_prompt.txt     # Prompt template sent to Groq
 ├── output/                   # Generated test cases saved here (gitignored)
 ├── examples/
 │   └── sample_story.txt      # Sample user story input
@@ -38,8 +38,8 @@ ai-test-generator/
 
 ## Getting Started
 
-### Step 1 - Get your FREE Gemini API key
-1. Go to **https://aistudio.google.com**
+### Step 1 - Get your FREE Groq API key
+1. Go to **https://console.groq.com/**
 2. Sign in with your Google account
 3. Click **"Get API Key"** -> **"Create API key"**
 4. Copy the key
@@ -64,6 +64,9 @@ python generator/test_generator.py --file examples/sample_story.txt
 
 # Save output to JSON
 python generator/test_generator.py --input "Search functionality" --save
+
+# Save output to Excel
+python generator/test_generator.py --input "Search functionality" --excel
 ```
 
 ## Example Output
