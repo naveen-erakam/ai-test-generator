@@ -1,0 +1,261 @@
+{
+  "feature": "Search functionality",
+  "total_cases": 15,
+  "test_cases": [
+    {
+      "id": "TC001",
+      "title": "Valid search query with existing results",
+      "type": "positive",
+      "priority": "high",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a valid search query in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed",
+      "tags": [
+        "search",
+        "valid_query"
+      ]
+    },
+    {
+      "id": "TC002",
+      "title": "Invalid search query with no results",
+      "type": "negative",
+      "priority": "medium",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter an invalid search query in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "No search results are displayed, with a relevant error message",
+      "tags": [
+        "search",
+        "invalid_query"
+      ]
+    },
+    {
+      "id": "TC003",
+      "title": "Empty search query",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Leave the search bar empty",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "No search results are displayed, with a relevant error message",
+      "tags": [
+        "search",
+        "empty_query"
+      ]
+    },
+    {
+      "id": "TC004",
+      "title": "Search query with special characters",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with special characters in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with special characters handled correctly",
+      "tags": [
+        "search",
+        "special_chars"
+      ]
+    },
+    {
+      "id": "TC005",
+      "title": "Search query with multiple words",
+      "type": "positive",
+      "priority": "high",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with multiple words in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with all words matched",
+      "tags": [
+        "search",
+        "multi_word"
+      ]
+    },
+    {
+      "id": "TC006",
+      "title": "Search query with quotes",
+      "type": "positive",
+      "priority": "medium",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with quotes in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with exact phrase matched",
+      "tags": [
+        "search",
+        "quotes"
+      ]
+    },
+    {
+      "id": "TC007",
+      "title": "Search query with hyphens",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with hyphens in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with hyphens handled correctly",
+      "tags": [
+        "search",
+        "hyphens"
+      ]
+    },
+    {
+      "id": "TC008",
+      "title": "Search query with apostrophes",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with apostrophes in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with apostrophes handled correctly",
+      "tags": [
+        "search",
+        "apostrophes"
+      ]
+    },
+    {
+      "id": "TC009",
+      "title": "Search query with non-ASCII characters",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with non-ASCII characters in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with non-ASCII characters handled correctly",
+      "tags": [
+        "search",
+        "non_ascii"
+      ]
+    },
+    {
+      "id": "TC010",
+      "title": "Search query with very long input",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a very long search query in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, or an error message is displayed if input is too long",
+      "tags": [
+        "search",
+        "long_input"
+      ]
+    },
+    {
+      "id": "TC011",
+      "title": "Search query with multiple consecutive spaces",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with multiple consecutive spaces in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with multiple consecutive spaces handled correctly",
+      "tags": [
+        "search",
+        "consecutive_spaces"
+      ]
+    },
+    {
+      "id": "TC012",
+      "title": "Search query with leading or trailing spaces",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with leading or trailing spaces in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, with leading or trailing spaces ignored",
+      "tags": [
+        "search",
+        "leading_trailing_spaces"
+      ]
+    },
+    {
+      "id": "TC013",
+      "title": "Search query with newline characters",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with newline characters in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, or an error message is displayed if newline characters are not allowed",
+      "tags": [
+        "search",
+        "newline_chars"
+      ]
+    },
+    {
+      "id": "TC014",
+      "title": "Search query with tab characters",
+      "type": "edge_case",
+      "priority": "low",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a search query with tab characters in the search bar",
+        "Click the search button",
+        "Verify search results are displayed"
+      ],
+      "expected_result": "Relevant search results are displayed, or an error message is displayed if tab characters are not allowed",
+      "tags": [
+        "search",
+        "tab_chars"
+      ]
+    },
+    {
+      "id": "TC015",
+      "title": "Search query with UI/UX validation",
+      "type": "positive",
+      "priority": "high",
+      "preconditions": "User is logged in, search bar is visible",
+      "steps": [
+        "Enter a valid search query in the search bar",
+        "Click the search button",
+        "Verify search results are displayed with correct formatting and layout"
+      ],
+      "expected_result": "Search results are displayed with correct formatting and layout",
+      "tags": [
+        "search",
+        "ui_ux"
+      ]
+    }
+  ]
+}
